@@ -96,4 +96,56 @@ static void bubbleSort(int arr[], int n)
                 break;
         }
     }
+```
+
+# Merge Sort
+
+Merge Sort is one of the most popular sorting algorithms that is based on the principle of Divide and Conquer Algorithm. A problem is divided into multiple sub-problems. Each sub-problem is solved individually. Finally, sub-problems are combined to form the final solution.
+
+## Example
+![Merge Sort Example](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Merge_sort_algorithm_diagram.svg/1024px-Merge_sort_algorithm_diagram.svg.png)
+
+## Complexity
+| Name                  | Best            | Average             | Worst               | Memory    | Stable    | Comments  |
+| --------------------- | :-------------: | :-----------------: | :-----------------: | :-------: | :-------: | :-------- |
+| **Merge sort**       | nlogn            | nlogn               | nlogn               | n         | Yes       |           |
+ 
+ ## Algorithm
+ ```Java
+ Merge_Sort(arr, beg, end)  
+  
+if beg < end  then
+ mid = (beg + end)/2  
+Merge_Sort(arr, beg, mid)  
+Merge_Sort(arr, mid + 1, end)  
+Merge (arr, beg, mid, end)  
+end of if  
+  
+End Merge_Sort
+```
+Code for Merge function
+```Java
+void merge(int arr[],int low,int mid,int high)
+   {
+        
+       int i,j,k,t[]=new int[max];
+       i=low;
+       k=low;
+       j=mid+1;
+       while(i<=mid && j<=high)
+       {
+         if(arr[i]<a[j])
+         t[k++]=a[i++];
+         else
+          t[k++]=arr[j++];
+          
+       }
+       while(i<=mid)
+        t[k++]=arr[i++];
+        while(j<=high)
+        t[k++]=arr[j++];
+        for(i=low;i<=high;i++)
+        arr[i]=t[i];
+   }    
+```
 

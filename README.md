@@ -148,4 +148,48 @@ void merge(int arr[],int low,int mid,int high)
         arr[i]=t[i];
    }    
 ```
+# Selection Sort
 
+
+Selection sort is a sorting algorithm, specifically an 
+in-place comparison sort. It has O(n2) time complexity, 
+making it inefficient on large lists, and generally 
+performs worse than the similar insertion sort. 
+Selection sort is noted for its simplicity, and it has 
+performance advantages over more complicated algorithms 
+in certain situations, particularly where auxiliary 
+memory is limited.
+
+![Algorithm Visualization](https://upload.wikimedia.org/wikipedia/commons/b/b0/Selection_sort_animation.gif)
+
+![Algorithm Visualization](https://upload.wikimedia.org/wikipedia/commons/9/94/Selection-Sort-Animation.gif)
+
+## Complexity
+
+| Name                  | Best            | Average             | Worst               | Memory    | Stable    | Comments  |
+| --------------------- | :-------------: | :-----------------: | :-----------------: | :-------: | :-------: | :-------- |
+| **Selection sort**    | n<sup>2</sup>   | n<sup>2</sup>       | n<sup>2</sup>       | 1         | No        |           |
+
+## Algorithm
+```Java
+void sort(int arr[])
+    {
+        int n = arr.length;
+ 
+        // One by one move boundary of unsorted subarray
+        for (int i = 0; i < n-1; i++)
+        {
+            // Find the minimum element in unsorted array
+            int min_idx = i;
+            for (int j = i+1; j < n; j++)
+                if (arr[j] < arr[min_idx])
+                    min_idx = j;
+ 
+            // Swap the found minimum element with the first
+            // element
+            int temp = arr[min_idx];
+            arr[min_idx] = arr[i];
+            arr[i] = temp;
+        }
+    }
+```

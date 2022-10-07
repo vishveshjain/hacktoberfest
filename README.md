@@ -193,3 +193,36 @@ void sort(int arr[])
         }
     }
 ```
+
+
+# Insertion Sort
+
+## Complexity
+
+| Name                  | Best            | Average             | Worst               | Space (Worst Case)|
+| --------------------- | :-------------: | :-----------------: | :-----------------: | :----------------:| 
+| **Insertion sort**    | n               | n<sup>2</sup>       | n<sup>2</sup>       | O(1)              | 
+
+
+## Algorithm
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+  
+void insertionSort(int arr[], int n) 
+{ 
+    int i, key, j; 
+    for (i = 1; i < n; i++)
+    { 
+        key = arr[i]; 
+        j = i - 1; 
+ 
+        while (j >= 0 && arr[j] > key)
+        { 
+            arr[j + 1] = arr[j]; 
+            j = j - 1; 
+        } 
+        arr[j + 1] = key; 
+    } 
+} 
+```

@@ -298,7 +298,8 @@ int main()
 ## Time Complexity :
 Time complexity : O(N*logN)
 Auxiliary space: O(1)
-		
+
+---		
 # Stooge Sort :
 # Program of Stooge Sort in C++
 // C++ code to implement stooge sort
@@ -350,3 +351,234 @@ int main()
 	return 0;
 }
 
+=======
+
+		
+# Shell Sort
+# C++ Program of Shell Sort :
+// C++ implementation of Shell Sort
+#include <iostream>
+using namespace std;
+
+/* function to sort arr using shellSort */
+int shellSort(int arr[], int n)
+{
+	// Start with a big gap, then reduce the gap
+	for (int gap = n/2; gap > 0; gap /= 2)
+	{
+		// Do a gapped insertion sort for this gap size.
+		// The first gap elements a[0..gap-1] are already in gapped order
+		// keep adding one more element until the entire array is
+		// gap sorted
+		for (int i = gap; i < n; i += 1)
+		{
+			// add a[i] to the elements that have been gap sorted
+			// save a[i] in temp and make a hole at position i
+			int temp = arr[i];
+
+			// shift earlier gap-sorted elements up until the correct
+			// location for a[i] is found
+			int j;			
+			for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+				arr[j] = arr[j - gap];
+			
+			// put temp (the original a[i]) in its correct location
+			arr[j] = temp;
+		}
+	}
+	return 0;
+}
+
+void printArray(int arr[], int n)
+{
+	for (int i=0; i<n; i++)
+		cout << arr[i] << " ";
+}
+
+int main()
+{
+	int arr[] = {12, 34, 54, 2, 3}, i;
+	int n = sizeof(arr)/sizeof(arr[0]);
+
+	cout << "Array before sorting: \n";
+	printArray(arr, n);
+
+	shellSort(arr, n);
+
+	cout << "\nArray after sorting: \n";
+	printArray(arr, n);
+
+	return 0;
+}
+
+## Time Complexity :
+Time complexity of Shell sort is O(n^2).
+Worst Case Complexity
+The worst-case complexity for shell sort is  O(n^2)
+Best Case Complexity
+When the given array list is already sorted the total count of comparisons of each interval is equal to the size of the given array.
+So best case complexity is Ω(n log(n))
+Average Case Complexity
+The shell sort Average Case Complexity depends on the interval selected by the programmer. 
+θ(n log(n)2).
+The Average Case Complexity: O(n*log n)
+Space Complexity:
+The space complexity of the shell sort is O(1).
+---
+		
+# Comb Sort :
+# Program of Comb Sort in C++
+// C++ implementation of Comb Sort
+#include<bits/stdc++.h>
+using namespace std;
+
+// To find gap between elements
+int getNextGap(int gap)
+{
+	// Shrink gap by Shrink factor
+	gap = (gap*10)/13;
+
+	if (gap < 1)
+		return 1;
+	return gap;
+}
+
+// Function to sort a[0..n-1] using Comb Sort
+void combSort(int a[], int n)
+{
+	// Initialize gap
+	int gap = n;
+
+	// Initialize swapped as true to make sure that
+	// loop runs
+	bool swapped = true;
+
+	// Keep running while gap is more than 1 and last
+	// iteration caused a swap
+	while (gap != 1 || swapped == true)
+	{
+		// Find next gap
+		gap = getNextGap(gap);
+
+		// Initialize swapped as false so that we can
+		// check if swap happened or not
+		swapped = false;
+
+		// Compare all elements with current gap
+		for (int i=0; i<n-gap; i++)
+		{
+			if (a[i] > a[i+gap])
+			{
+				swap(a[i], a[i+gap]);
+				swapped = true;
+			}
+		}
+	}
+}
+
+// Driver program
+int main()
+{
+	int a[] = {8, 4, 1, 56, 3, -44, 23, -6, 28, 0};
+	int n = sizeof(a)/sizeof(a[0]);
+
+	combSort(a, n);
+
+	printf("Sorted array: \n");
+	for (int i=0; i<n; i++)
+		printf("%d ", a[i]);
+
+	return 0;
+}
+## Time Complexity:
+Average case time complexity of the algorithm is Ω(N^2/2^p), where p is the number of increments. The worst-case complexity of this algorithm is O(n^2) and the Best Case complexity is O(nlogn). 
+Auxiliary Space : O(1). 
+
+---
+# Tree Sort:
+# Program of Tree Sort in C++
+// C++ program to implement Tree Sort
+#include<bits/stdc++.h>
+
+using namespace std;
+
+struct Node
+{
+	int key;
+	struct Node *left, *right;
+};
+
+// A utility function to create a new BST Node
+struct Node *newNode(int item)
+{
+	struct Node *temp = new Node;
+	temp->key = item;
+	temp->left = temp->right = NULL;
+	return temp;
+}
+
+// Stores inorder traversal of the BST
+// in arr[]
+void storeSorted(Node *root, int arr[], int &i)
+{
+	if (root != NULL)
+	{
+		storeSorted(root->left, arr, i);
+		arr[i++] = root->key;
+		storeSorted(root->right, arr, i);
+	}
+}
+
+/* A utility function to insert a new
+Node with given key in BST */
+Node* insert(Node* node, int key)
+{
+	/* If the tree is empty, return a new Node */
+	if (node == NULL) return newNode(key);
+
+	/* Otherwise, recur down the tree */
+	if (key < node->key)
+		node->left = insert(node->left, key);
+	else if (key > node->key)
+		node->right = insert(node->right, key);
+
+	/* return the (unchanged) Node pointer */
+	return node;
+}
+
+// This function sorts arr[0..n-1] using Tree Sort
+void treeSort(int arr[], int n)
+{
+	struct Node *root = NULL;
+
+	// Construct the BST
+	root = insert(root, arr[0]);
+	for (int i=1; i<n; i++)
+		root = insert(root, arr[i]);
+
+	// Store inorder traversal of the BST
+	// in arr[]
+	int i = 0;
+	storeSorted(root, arr, i);
+}
+
+// Driver Program to test above functions
+int main()
+{
+	//create input array
+	int arr[] = {5, 4, 7, 2, 11};
+	int n = sizeof(arr)/sizeof(arr[0]);
+
+	treeSort(arr, n);
+
+		for (int i=0; i<n; i++)
+	cout << arr[i] << " ";
+
+	return 0;
+}
+## Time Complexity :
+Average Case Time Complexity: O(n log n) Adding one item to a Binary Search tree on average takes O(log n) time. Therefore, adding n items will take O(n log n) time
+Worst Case Time Complexity: O(n^2). The worst case time complexity of Tree Sort can be improved by using a self-balancing binary search tree like Red Black Tree, AVL Tree. Using self-balancing binary tree Tree Sort will take O(n log n) time to sort the array in worst case. 
+
+Auxiliary Space: O(n)
+---

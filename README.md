@@ -370,6 +370,76 @@ The shell sort Average Case Complexity depends on the interval selected by the p
 The Average Case Complexity: O(n*log n)
 Space Complexity:
 The space complexity of the shell sort is O(1).
+---
+		
+# Comb Sort :
+# Program of Comb Sort in C++
+// C++ implementation of Comb Sort
+#include<bits/stdc++.h>
+using namespace std;
+
+// To find gap between elements
+int getNextGap(int gap)
+{
+	// Shrink gap by Shrink factor
+	gap = (gap*10)/13;
+
+	if (gap < 1)
+		return 1;
+	return gap;
+}
+
+// Function to sort a[0..n-1] using Comb Sort
+void combSort(int a[], int n)
+{
+	// Initialize gap
+	int gap = n;
+
+	// Initialize swapped as true to make sure that
+	// loop runs
+	bool swapped = true;
+
+	// Keep running while gap is more than 1 and last
+	// iteration caused a swap
+	while (gap != 1 || swapped == true)
+	{
+		// Find next gap
+		gap = getNextGap(gap);
+
+		// Initialize swapped as false so that we can
+		// check if swap happened or not
+		swapped = false;
+
+		// Compare all elements with current gap
+		for (int i=0; i<n-gap; i++)
+		{
+			if (a[i] > a[i+gap])
+			{
+				swap(a[i], a[i+gap]);
+				swapped = true;
+			}
+		}
+	}
+}
+
+// Driver program
+int main()
+{
+	int a[] = {8, 4, 1, 56, 3, -44, 23, -6, 28, 0};
+	int n = sizeof(a)/sizeof(a[0]);
+
+	combSort(a, n);
+
+	printf("Sorted array: \n");
+	for (int i=0; i<n; i++)
+		printf("%d ", a[i]);
+
+	return 0;
+}
+## Time Complexity:
+Average case time complexity of the algorithm is Ω(N^2/2^p), where p is the number of increments. The worst-case complexity of this algorithm is O(n^2) and the Best Case complexity is O(nlogn). 
+Auxiliary Space : O(1). 
+=======
 
 # Tree Sort:
 # Program of Tree Sort in C++
@@ -457,3 +527,4 @@ Average Case Time Complexity: O(n log n) Adding one item to a Binary Search tree
 Worst Case Time Complexity: O(n^2). The worst case time complexity of Tree Sort can be improved by using a self-balancing binary search tree like Red Black Tree, AVL Tree. Using self-balancing binary tree Tree Sort will take O(n log n) time to sort the array in worst case. 
 
 Auxiliary Space: O(n)
+---

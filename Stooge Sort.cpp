@@ -1,4 +1,4 @@
-# Program of Stooge Sort in C++
+// Program of Stooge Sort in C++
 
 // C++ code to implement stooge sort
 #include <iostream>
